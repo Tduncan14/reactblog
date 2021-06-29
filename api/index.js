@@ -22,11 +22,10 @@ mongoose.connect( process.env.MONGOURI,{useNewUrlParser:true,useUnifiedTopology:
 ).catch(err => console.log(err))
 
 
-app.use(helmet())
-app.use(morgan())
+app.use(express.json())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use( '/register',AuthRouter)
+app.use( '/api',AuthRouter)
 
 
 const port = process.env.PORT  || 5000;
