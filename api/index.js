@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const AuthRouter = require('./routes/auth');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const morgan = require('morgan')
 
 Dot.config()
 
@@ -20,6 +22,8 @@ mongoose.connect( process.env.MONGOURI,{useNewUrlParser:true,useUnifiedTopology:
 ).catch(err => console.log(err))
 
 
+app.use(helmet())
+app.use(morgan())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use( '/register',AuthRouter)
