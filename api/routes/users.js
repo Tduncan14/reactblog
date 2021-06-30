@@ -41,20 +41,28 @@ router.put('/:userId', async(req,res) =>{
 
 })
 
+ 
+router.delete('/delete/:userId', async(req,res) =>{
 
-router.delete(':delete/id', async(req,res) =>{
+    
+    if(req.body.userId === req.params.userId){
+        if(req.body.password){
+            const salt =  await bcrypt.genSalt(10);
+            req.body.password = await bcrypt.hash(req.body.password,salt)
+        }
+    }
 
 
   try{
 
-     const deleteUser = await User.findByIdAndDelete(req.params.id,(err,use)=>{
+     const deleteUser = await User.findByIdAndDelete(req.params.userId,(err,use)=>{
   
          if(err){
              console.log('cannot find user or already deleted')
          }
 
          else{
-             console.log('user is deleted')
+             console.log(`${use} is being deleted`)
          }
 
      })
