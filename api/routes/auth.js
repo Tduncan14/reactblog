@@ -59,6 +59,9 @@ router.post("/login", async(req,res) => {
 
         !validate && res.status(400).json('wrong credentials')
 
+
+        const{password, ...others} = user;
+
         res.status(200).json(user)
         }
     
